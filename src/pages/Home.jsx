@@ -8,8 +8,6 @@ export default function Home() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    // const controller = new AbortController();
-
     const fetchTrendingMovies = async () => {
       try {
         setIsLoading(true);
@@ -17,16 +15,12 @@ export default function Home() {
         const fetchedMovies = await moviesAPI.getTrendingMovies();
         setTrendingMovies(fetchedMovies);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') setError(true);
+        setError(true);
       } finally {
         setIsLoading(false);
       }
     };
     fetchTrendingMovies();
-
-    return () => {
-      // controller.abort();
-    };
   }, []);
 
   return (

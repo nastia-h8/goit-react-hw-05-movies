@@ -16,16 +16,21 @@ export default function Movies() {
   const queryParams = searchParams.get('query') ?? '';
 
   const onSubmit = query => {
+    if (query === queryParams) {
+      alert(`You already searching ${query}`);
+      return;
+    }
+
     setSearchParams(query ? { query } : {});
     setMovies([]);
     setError(false);
   };
 
   useEffect(() => {
-    try {
-      setIsLoading(true);
+    const fetchMovies = async query => {
+      try {
+        setIsLoading(true);
 
-      const fetchMovies = async query => {
         const normalizedQuery = query.toLowerCase().trim();
         const fetchedMovies = await moviesAPI.getMovies(normalizedQuery);
 
@@ -33,21 +38,23 @@ export default function Movies() {
           alert('No movies found');
           return;
         }
-
         setMovies(fetchedMovies);
-      };
-
-      if (queryParams) fetchMovies(queryParams);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (queryParams) fetchMovies(queryParams);
   }, [queryParams]);
 
   return (
     <div>
-      <Searchbar onSubmit={onSubmit} value={queryParams} />
+      <Searchbar
+        onSubmit={onSubmit}
+        value={queryParams}
+        isLoading={isLoading}
+      />
       {movies.length > 0 && <MovieList movies={movies} />}
       {isLoading && <p>Loading...</p>}
       {error && (

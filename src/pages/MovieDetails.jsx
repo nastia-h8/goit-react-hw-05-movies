@@ -17,8 +17,6 @@ export default function MovieDetails() {
   const backLinkRef = useRef(location?.state?.from ?? '/');
 
   useEffect(() => {
-    // const controller = new AbortController();
-
     const fetchMovieDetails = async movieId => {
       try {
         setIsLoading(true);
@@ -26,16 +24,12 @@ export default function MovieDetails() {
         const fetchedMovieDetails = await moviesAPI.getMovieDetails(movieId);
         setMovie(fetchedMovieDetails);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELED') setError(true);
+        setError(true);
       } finally {
         setIsLoading(false);
       }
     };
     fetchMovieDetails(movieId);
-
-    return () => {
-      // controller.abort();
-    };
   }, [movieId]);
 
   return (

@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-function Searchbar({ onSubmit }) {
+function Searchbar({ onSubmit, isLoading }) {
   const [query, setQuery] = useState('');
 
   const handleInput = e => setQuery(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const { query } = e.target.elements;
-    if (!query.value) {
+
+    if (!query) {
       alert('Enter something!');
       return;
     }
 
-    onSubmit(query.value);
+    onSubmit(query);
+    setQuery('');
   };
 
   return (
@@ -29,7 +30,9 @@ function Searchbar({ onSubmit }) {
           autoComplete="off"
           autoFocus
         />
-        <button type="submit">Search</button>
+        <button type="submit" disabled={isLoading}>
+          Search
+        </button>
       </form>
     </>
   );
@@ -37,6 +40,7 @@ function Searchbar({ onSubmit }) {
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default Searchbar;
