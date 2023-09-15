@@ -16,11 +16,6 @@ export default function Movies() {
   const queryParams = searchParams.get('query') ?? '';
 
   const onSubmit = query => {
-    if (query === queryParams) {
-      alert(`You already searching ${query}`);
-      return;
-    }
-
     setSearchParams(query ? { query } : {});
     setMovies([]);
     setError(false);
@@ -46,7 +41,7 @@ export default function Movies() {
       }
     };
     if (queryParams) fetchMovies(queryParams);
-  }, [queryParams]);
+  }, [queryParams, movies.length]);
 
   return (
     <div>
