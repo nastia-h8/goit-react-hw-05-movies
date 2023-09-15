@@ -1,70 +1,42 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-function Searchbar({ value, onChange }) {
+function Searchbar({ onSubmit }) {
+  const [query, setQuery] = useState('');
+
+  const handleInput = e => setQuery(e.target.value);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const { query } = e.target.elements;
+    if (!query.value) {
+      alert('Enter something!');
+      return;
+    }
+
+    onSubmit(query.value);
+  };
+
   return (
     <>
-      <input
-        name="query"
-        type="text"
-        value={value}
-        onChange={e => {
-          onChange(e.target.value);
-        }}
-        placeholder="Search movies"
-        autoComplete="off"
-        autoFocus
-      />
+      <form onSubmit={handleSubmit}>
+        <input
+          name="query"
+          type="text"
+          value={query}
+          onChange={handleInput}
+          placeholder="Search movies"
+          autoComplete="off"
+          autoFocus
+        />
+        <button type="submit">Search</button>
+      </form>
     </>
   );
 }
 
 Searchbar.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Searchbar;
-
-// initial
-// function Searchbar({ onSubmit }) {
-//   const [query, setQuery] = useState('');
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   console.log(searchParams);
-
-//   const handleSearchInput = e => {
-//     setQuery(e.target.value)
-
-//   };
-
-//   const handleSearchForm = e => {
-//     e.preventDefault();
-//     if (!query) {
-//       alert('Please enter something to search...');
-//       return;
-//     }
-
-//     const uniqueQuery = `${Date.now()}/${query.toLowerCase().trim()}`;
-//     onSubmit(uniqueQuery);
-//   };
-
-//   return (
-//     <form onSubmit={handleSearchForm}>
-//       <input
-//         name="query"
-//         type="text"
-//         value={query}
-//         onChange={handleSearchInput}
-//         placeholder="Search movies"
-//         autoComplete="off"
-//         autoFocus
-//       />
-//       <button type="submit">Search</button>
-//     </form>
-//   );
-// }
-
-// Searchbar.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
-
-// export default Searchbar;

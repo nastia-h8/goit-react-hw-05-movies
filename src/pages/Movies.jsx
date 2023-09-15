@@ -15,7 +15,7 @@ export default function Movies() {
 
   const queryParams = searchParams.get('query') ?? '';
 
-  const onChange = query => {
+  const onSubmit = query => {
     setSearchParams(query ? { query } : {});
     setMovies([]);
     setError(false);
@@ -47,7 +47,7 @@ export default function Movies() {
 
   return (
     <div>
-      <Searchbar onChange={onChange} value={queryParams} />
+      <Searchbar onSubmit={onSubmit} value={queryParams} />
       {movies.length > 0 && <MovieList movies={movies} />}
       {isLoading && <p>Loading...</p>}
       {error && (
@@ -57,30 +57,30 @@ export default function Movies() {
   );
 }
 
-//initial
+// with onChange
 // export default function Movies() {
-//   const [query, setQuery] = useState('');
 //   const [movies, setMovies] = useState([]);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [error, setError] = useState(false);
+//   const [searchParams, setSearchParams] = useSearchParams();
 
-//   const handleSearchSubmit = query => {
-//     setQuery(query);
+//   const queryParams = searchParams.get('query') ?? '';
+
+//   const onChange = query => {
+//     setSearchParams(query ? { query } : {});
 //     setMovies([]);
 //     setError(false);
 //   };
 
 //   useEffect(() => {
-//     // const controller = new AbortController();
-
 //     try {
 //       setIsLoading(true);
 
 //       const fetchMovies = async query => {
-//         const fetchedMovies = await moviesAPI.getMovies(query);
-//         // const fetchedMovies = await moviesAPI.getMovies(query, controller);
+//         const normalizedQuery = query.toLowerCase().trim();
+//         const fetchedMovies = await moviesAPI.getMovies(normalizedQuery);
 
-//         if (!fetchedMovies.length && query !== null) {
+//         if (!fetchedMovies.length && normalizedQuery) {
 //           alert('No movies found');
 //           return;
 //         }
@@ -88,25 +88,17 @@ export default function Movies() {
 //         setMovies(fetchedMovies);
 //       };
 
-//       if (query) {
-//         const queryToSearch = query.split('/').slice(1).join('');
-//         fetchMovies(queryToSearch);
-//       }
+//       if (queryParams) fetchMovies(queryParams);
 //     } catch (error) {
-//       // if (error.code !== 'ERR_CANCELED') setError(true);
 //       setError(true);
 //     } finally {
 //       setIsLoading(false);
 //     }
-
-//     // return () => {
-//     //   controller.abort();
-//     // };
-//   }, [query]);
+//   }, [queryParams]);
 
 //   return (
 //     <div>
-//       <Searchbar onSubmit={handleSearchSubmit} />
+//       <Searchbar onChange={onChange} value={queryParams} />
 //       {movies.length > 0 && <MovieList movies={movies} />}
 //       {isLoading && <p>Loading...</p>}
 //       {error && (
