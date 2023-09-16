@@ -1,10 +1,19 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
-import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
+import { AiFillLeftSquare } from 'react-icons/ai';
 
 import * as moviesAPI from 'services/movies-api';
 
-import MovieInfoCard from 'components/MovieInfoCard';
-import Message from 'components/Message';
+import MovieInfoCard from 'components/MovieInfoCard/MovieInfoCard';
+import Message from 'components/Message/ErrorMessage';
+import Loader from 'components/Loader';
+import {
+  AddInfoWrapper,
+  StyledLink,
+  StyledBackLink,
+  List,
+  Container,
+} from './MovieDetails.styled';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -34,24 +43,36 @@ export default function MovieDetails() {
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loader />}
       {error && (
         <Message>Oops, something went wrong...Try again later!</Message>
       )}
-      <Link to={backLinkRef.current}>Go back</Link>
+
+      <Container>
+        <StyledBackLink to={backLinkRef.current}>
+          <AiFillLeftSquare size={20} /> Go back
+        </StyledBackLink>
+      </Container>
+
       {movie && (
         <>
           <MovieInfoCard movie={movie} />
 
-          <div>
+          <AddInfoWrapper>
             <h3>Additional Information</h3>
-            <Link to="cast">Cast</Link>
-            <Link to="reviews">Reviews</Link>
+            <List>
+              <li>
+                <StyledLink to="cast">Cast</StyledLink>
+              </li>
+              <li>
+                <StyledLink to="reviews">Reviews</StyledLink>
+              </li>
+            </List>
 
-            <Suspense>
+            <Suspense fallback={<Loader />}>
               <Outlet />
             </Suspense>
-          </div>
+          </AddInfoWrapper>
         </>
       )}
     </>

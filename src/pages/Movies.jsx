@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import * as moviesAPI from 'services/movies-api';
 
-import Searchbar from 'components/Searchbar';
-import MovieList from 'components/MovieList';
-import Message from 'components/Message';
+import Searchbar from 'components/Searchbar/Searchbar';
+import MovieList from 'components/MovieList/MovieList';
+import Message from 'components/Message/ErrorMessage';
+import Loader from 'components/Loader';
+import { Container } from './Movies.styled';
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
@@ -30,7 +33,7 @@ export default function Movies() {
         const fetchedMovies = await moviesAPI.getMovies(normalizedQuery);
 
         if (!fetchedMovies.length && normalizedQuery) {
-          alert('No movies found');
+          toast.error('No movies found');
           return;
         }
         setMovies(fetchedMovies);
@@ -44,18 +47,18 @@ export default function Movies() {
   }, [queryParams, movies.length]);
 
   return (
-    <div>
+    <Container>
       <Searchbar
         onSubmit={onSubmit}
         value={queryParams}
         isLoading={isLoading}
       />
       {movies.length > 0 && <MovieList movies={movies} />}
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loader />}
       {error && (
         <Message>Oops, something went wrong...Try again later!</Message>
       )}
-    </div>
+    </Container>
   );
 }
 

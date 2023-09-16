@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
+
 import * as moviesAPI from 'services/movies-api';
-import MovieList from 'components/MovieList';
+
+import MovieList from 'components/MovieList/MovieList';
+import Loader from 'components/Loader';
+import { Container } from './Home.styled';
 
 export default function Home() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -24,13 +28,13 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Container>
       <h1>Trending today</h1>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loader />}
       {error && <p>Oops, something went wrong...Try again later!</p>}
       {trendingMovies.length > 0 && (
         <MovieList movies={trendingMovies} path="movies/" />
       )}
-    </>
+    </Container>
   );
 }

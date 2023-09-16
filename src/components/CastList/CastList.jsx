@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import placeholder from '../images/placeholder.jpg';
+import placeholder from '../../images/placeholder.jpg';
+import { List, Item, Overlay, Character, Name } from './CastList.styled';
 
 function CastList({ cast }) {
   return (
-    <ul>
+    <List>
       {cast.map(({ id, name, character, profile_path }) => (
-        <li key={id}>
+        <Item key={id}>
           <img
             src={
               profile_path
@@ -13,12 +14,15 @@ function CastList({ cast }) {
                 : `${placeholder}`
             }
             alt={name}
+            width="200"
           />
-          <p>{name}</p>
-          <p>Character: {character}</p>
-        </li>
+          <Overlay>
+            <Name>{name}</Name>
+            <Character>{character}</Character>
+          </Overlay>
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 }
 

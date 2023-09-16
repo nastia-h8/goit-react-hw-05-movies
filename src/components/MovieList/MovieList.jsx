@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { List, StyledLink } from './MovieList.styled';
+import { AiFillPlayCircle } from 'react-icons/ai';
 
 function MovieList({ movies, path = '' }) {
   const location = useLocation();
 
   return (
-    <ul>
+    <List>
       {movies.map(({ id, title }) => (
         <li key={id}>
-          <Link to={`${path}${id}`} state={{ from: location }}>
-            {title}
-          </Link>
+          <StyledLink to={`${path}${id}`} state={{ from: location }}>
+            <AiFillPlayCircle size={20} />
+            <span>{title}</span>
+          </StyledLink>
         </li>
       ))}
-    </ul>
+    </List>
   );
 }
 

@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import * as moviesAPI from 'services/movies-api';
 
-import CastList from './CastList';
-import Message from './Message';
-import React from 'react';
+import CastList from './CastList/CastList';
+import Loader from './Loader';
+import ErrorMessage from './Message/ErrorMessage';
+import InfoMessage from './Message/InfoMessage';
 
 export default function Cast() {
   const { movieId } = useParams();
@@ -35,14 +36,11 @@ export default function Cast() {
       {cast.length > 0 ? (
         <CastList cast={cast} />
       ) : (
-        <Message>No cast added...</Message>
+        <InfoMessage>No cast added...</InfoMessage>
       )}
 
-      {isLoading && <p>Loading...</p>}
-
-      {error && (
-        <Message>Oops, something went wrong...Try again later!</Message>
-      )}
+      {isLoading && <Loader />}
+      {error && <ErrorMessage />}
     </>
   );
 }

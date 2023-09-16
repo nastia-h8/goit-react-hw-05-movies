@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import * as moviesAPI from 'services/movies-api';
 
-import ReviewsList from './ReviewsList';
-import Message from './Message';
+import ReviewsList from './ReviewsList/ReviewsList';
+import Loader from './Loader';
+import ErrorMessage from './Message/ErrorMessage';
+import InfoMessage from './Message/InfoMessage';
 
 export default function Reviews() {
   const { movieId } = useParams();
@@ -31,14 +33,12 @@ export default function Reviews() {
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {error && (
-        <Message>Oops, something went wrong...Try again later!</Message>
-      )}
+      {isLoading && <Loader />}
+      {error && <ErrorMessage />}
       {reviews.length > 0 ? (
         <ReviewsList reviews={reviews} />
       ) : (
-        <Message>No reviews yet...</Message>
+        <InfoMessage>No reviews yet...</InfoMessage>
       )}
     </>
   );

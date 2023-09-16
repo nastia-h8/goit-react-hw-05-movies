@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { Form, Input, Button } from './Searchbar.styled';
 
 function Searchbar({ onSubmit, isLoading }) {
   const [query, setQuery] = useState('');
@@ -10,7 +13,7 @@ function Searchbar({ onSubmit, isLoading }) {
     e.preventDefault();
 
     if (!query) {
-      alert('Enter something!');
+      toast('Please enter something to search...', { icon: '🟡' });
       return;
     }
 
@@ -20,8 +23,8 @@ function Searchbar({ onSubmit, isLoading }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           name="query"
           type="text"
           value={query}
@@ -30,10 +33,10 @@ function Searchbar({ onSubmit, isLoading }) {
           autoComplete="off"
           autoFocus
         />
-        <button type="submit" disabled={isLoading}>
-          Search
-        </button>
-      </form>
+        <Button type="submit" disabled={isLoading}>
+          <AiOutlineSearch size={20} />
+        </Button>
+      </Form>
     </>
   );
 }
