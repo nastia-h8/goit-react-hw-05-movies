@@ -19,8 +19,7 @@ export const Header = styled.header`
   font-size: 14px;
   line-height: 1.14;
   letter-spacing: 0.02em;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
-    1px 4px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: ${p => p.theme.shadow};
 `;
 
 export const HeaderContainer = styled.div`
@@ -34,7 +33,7 @@ export const HeaderContainer = styled.div`
 
 export const Nav = styled.nav`
   display: flex;
-  gap: 12px;
+  gap: ${p => p.theme.spacing(3)};
 `;
 
 export const Logo = styled.span`
@@ -46,22 +45,25 @@ export const Logo = styled.span`
 `;
 
 export const StyledLink = styled(NavLink)`
+  position: relative;
   padding: 10px 16px;
-  border-radius: 4px;
-  text-decoration: none;
   font-weight: 700;
-  color: inherit;
   font-size: 18px;
   line-height: 1.14;
   letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: ${p => p.theme.spacing(1)};
+  color: inherit;
+  transition: all 250ms linear;
 
   &:hover,
   &:focus {
-    color: #423e3e;
+    border-color: ${p => p.theme.colors.accent};
   }
 
   &.active {
     color: white;
-    background-color: rgba(0, 209, 255, 1);
+    background-color: ${p => p.theme.colors.accent};
   }
 `;

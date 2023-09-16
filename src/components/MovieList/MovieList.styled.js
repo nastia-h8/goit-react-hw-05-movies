@@ -5,39 +5,27 @@ export const List = styled.ul`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: ${p => p.theme.spacing(3)};
 `;
 
 export const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: ${p => p.theme.spacing(3)};
   text-decoration: none;
-  color: inherit;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.14;
   letter-spacing: 0.03em;
+  color: inherit;
+  transition: all ${p => p.theme.transition};
 
   &:hover,
   &:focus {
-    color: rgba(0, 209, 255, 1);
+    color: ${p => p.theme.colors.accent};
   }
 
   svg {
-    fill: rgba(0, 209, 255, 1);
+    fill: ${p => p.theme.colors.accent};
   }
-
-  transition: all 250ms linear;
-
-  /* padding-left: 28px; */
-  /* &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    color: tomato;
-    background-color: tomato;
-  } */
 `;

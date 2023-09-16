@@ -5,16 +5,14 @@ export const List = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  gap: 12px;
+  gap: ${p => p.theme.spacing(3)};
 
   li {
     padding: 20px;
     width: 650px;
     overflow: hidden;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
-      0px 2px 1px rgba(0, 0, 0, 0.2);
-    border-radius: 0px 0px 4px 4px;
+    box-shadow: ${p => p.theme.shadow};
+    border-radius: ${p => p.theme.radii.sm};
   }
 `;
 
@@ -44,5 +42,5 @@ export const Button = styled.button`
   cursor: pointer;
   border: none;
   background-color: transparent;
-  transition: all 250ms linear;
+  transition: all all ${p => p.theme.transition};
 `;

@@ -11,7 +11,6 @@ axios.defaults.baseURL = `https://api.themoviedb.org/3`;
 
 export async function getTrendingMovies() {
   const response = await axios.get('/trending/movie/day', options);
-  // console.log(response.data);
   return response.data.results;
 }
 
@@ -20,8 +19,6 @@ export async function getMovies(query) {
     `/search/movie?query=${query}&include_adult=false&page=1`,
     options
   );
-
-  // console.log(response.data);
   return response.data.results;
 }
 
@@ -33,14 +30,10 @@ export async function getMovieDetails(movieId) {
 
 export async function getMovieCast(movieId) {
   const response = await axios.get(`/movie/${movieId}/credits`, options);
-
-  // console.log(response.data);
   return response.data.cast;
 }
 
 export async function getMovieReviews(movieId) {
   const response = await axios.get(`movie/${movieId}/reviews?page=1`, options);
-
-  // console.log(response.data);
   return response.data.results;
 }

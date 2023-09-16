@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   padding-left: 16px;
@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const StyledBackLink = styled(Link)`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: ${p => p.theme.spacing(1)};
   width: 100px;
   font-size: 16px;
   font-weight: 500;
@@ -21,14 +21,15 @@ export const StyledBackLink = styled(Link)`
   letter-spacing: 0.03em;
   text-decoration: none;
   color: inherit;
-  transition: color 250ms linear;
+  transition: color ${p => p.theme.transition};
 
   &:hover,
   &:focus {
-    color: rgba(0, 209, 255, 1);
-  }
-  svg {
-    fill: currentColor;
+    color: ${p => p.theme.colors.accent};
+
+    svg {
+      fill: currentColor;
+    }
   }
 `;
 
@@ -47,27 +48,31 @@ export const AddInfoWrapper = styled.div`
 export const List = styled.ul`
   margin-bottom: 20px;
   display: flex;
-  gap: 12px;
+  gap: ${p => p.theme.spacing(3)};
   align-items: center;
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(NavLink)`
   display: block;
   padding: 10px 16px;
-  border-radius: 4px;
+  border-radius: ${p => p.theme.radii.sm};
   text-decoration: none;
   font-weight: 700;
   color: inherit;
   font-size: 14px;
   line-height: 1.14;
   letter-spacing: 0.02em;
-  color: #423e3e;
-  border: 1px solid rgba(0, 209, 255, 1);
-  transition: all 250ms linear;
+  border: 1px solid ${p => p.theme.colors.accent};
+  transition: all ${p => p.theme.transition};
 
   &:hover,
   &:focus {
-    color: white;
-    background-color: rgba(0, 209, 255, 1);
+    color: ${p => p.theme.colors.light};
+    background-color: ${p => p.theme.colors.accent};
+  }
+
+  &.active {
+    color: ${p => p.theme.colors.light};
+    background-color: ${p => p.theme.colors.accent};
   }
 `;

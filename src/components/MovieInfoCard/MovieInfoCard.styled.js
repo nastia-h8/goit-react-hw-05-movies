@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  gap: 24px;
+  gap: ${p => p.theme.spacing(6)};
   padding: 32px 16px;
   margin-left: auto;
   margin-right: auto;
@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const ImgWrapper = styled.div`
   width: 250px;
-  border-radius: 4px;
+  border-radius: ${p => p.theme.radii.sm};
   overflow: hidden;
 `;
 
@@ -19,12 +19,12 @@ export const InfoWrapper = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   width: 300px;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  color: white;
+  flex-grow: 1;
   text-align: left;
+  color: ${p => p.theme.colors.light};
 `;
 
 export const Label = styled.span`

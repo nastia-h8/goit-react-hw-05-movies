@@ -7,9 +7,8 @@ export const Form = styled.form`
   align-items: center;
   width: 100%;
   max-width: 600px;
-
-  border: 1px solid gray;
-  border-radius: 4px;
+  border: 1px solid ${p => p.theme.colors.border};
+  border-radius: ${p => p.theme.radii.sm};
   overflow: hidden;
 `;
 
@@ -18,7 +17,6 @@ export const Input = styled.input`
   width: 100%;
   height: 100%;
   padding: 4px 8px;
-
   font: inherit;
   font-size: 20px;
   color: #423e3e;
@@ -36,14 +34,14 @@ export const Button = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  transition: all 250ms linear;
-  cursor: pointer;
   outline: none;
-  color: #757575;
+  color: ${p => p.theme.colors.secondary};
+  cursor: pointer;
+  transition: all ${p => p.theme.transition};
 
   &:hover,
   &:focus {
     color: #fff;
-    background-color: rgba(0, 209, 255, 1);
+    background-color: ${p => p.theme.colors.accent};
   }
 `;

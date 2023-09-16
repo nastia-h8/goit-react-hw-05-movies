@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import placeholder from '../../images/placeholder.jpg';
-import { List, Item, Overlay, Character, Name } from './CastList.styled';
+import { List, Item, Overlay, Name } from './CastList.styled';
 
 function CastList({ cast }) {
   return (
@@ -18,7 +18,7 @@ function CastList({ cast }) {
           />
           <Overlay>
             <Name>{name}</Name>
-            <Character>{character}</Character>
+            <p>{character}</p>
           </Overlay>
         </Item>
       ))}
