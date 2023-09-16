@@ -34,6 +34,7 @@ export default function Movies() {
 
         if (!fetchedMovies.length && normalizedQuery) {
           toast.error('No movies found');
+          setSearchParams({});
           return;
         }
         setMovies(fetchedMovies);
@@ -44,7 +45,7 @@ export default function Movies() {
       }
     };
     if (queryParams) fetchMovies(queryParams);
-  }, [queryParams, movies.length]);
+  }, [queryParams, movies.length, setSearchParams]);
 
   return (
     <Container>
