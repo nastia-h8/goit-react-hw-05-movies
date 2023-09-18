@@ -25,12 +25,18 @@ export default function Movies() {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const fetchMovies = async query => {
       try {
         setIsLoading(true);
 
         const normalizedQuery = query.toLowerCase().trim();
-        const fetchedMovies = await moviesAPI.getMovies(normalizedQuery);
+        const fetchedMovies = await moviesAPI.getMovies(
+          normalizedQuery,
+          signal
+        );
 
         if (!fetchedMovies.length && normalizedQuery) {
           toast.error('No movies found');
@@ -39,12 +45,17 @@ export default function Movies() {
         }
         setMovies(fetchedMovies);
       } catch (error) {
+        if (error.code !== 'ERR_CANCELED') setError(true);
         setError(true);
       } finally {
         setIsLoading(false);
       }
     };
     if (queryParams) fetchMovies(queryParams);
+
+    return () => {
+      controller.abort();
+    };
   }, [queryParams, movies.length, setSearchParams]);
 
   return (

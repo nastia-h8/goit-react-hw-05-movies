@@ -12,19 +12,27 @@ export default function Home() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const fetchTrendingMovies = async () => {
       try {
         setIsLoading(true);
 
-        const fetchedMovies = await moviesAPI.getTrendingMovies();
+        const fetchedMovies = await moviesAPI.getTrendingMovies(signal);
         setTrendingMovies(fetchedMovies);
       } catch (error) {
-        setError(true);
+        // error.config.signal.aborted
+        if (error.code !== 'ERR_CANCELED') setError(true);
       } finally {
         setIsLoading(false);
       }
     };
     fetchTrendingMovies();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (

@@ -15,20 +15,27 @@ export default function Cast() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    try {
-      setIsLoading(true);
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-      const fetchMovieCast = async movieId => {
-        const fetchedCast = await moviesAPI.getMovieCast(movieId);
+    const fetchMovieCast = async movieId => {
+      try {
+        setIsLoading(true);
+
+        const fetchedCast = await moviesAPI.getMovieCast(movieId, signal);
         setCast(fetchedCast);
-      };
+      } catch (error) {
+        if (error.code !== 'ERR_CANCELED') setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-      fetchMovieCast(movieId);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
+    fetchMovieCast(movieId);
+
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
 
   return (
