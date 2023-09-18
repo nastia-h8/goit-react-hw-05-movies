@@ -22,7 +22,6 @@ export default function Home() {
         const fetchedMovies = await moviesAPI.getTrendingMovies(signal);
         setTrendingMovies(fetchedMovies);
       } catch (error) {
-        // error.config.signal.aborted
         if (error.code !== 'ERR_CANCELED') setError(true);
       } finally {
         setIsLoading(false);
