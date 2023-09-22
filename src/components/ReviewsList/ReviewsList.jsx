@@ -25,25 +25,21 @@ function ReviewsList({ reviews }) {
           created_at,
         }) => {
           const isContentShort = content?.length < 300;
-          const authorAvatar = author_details.avatar_path ? (
-            <Avatar
-              src={`https://image.tmdb.org/t/p/original/${author_details.avatar_path}`}
-              alt={author_details.name}
-            />
-          ) : (
-            <Avatar src={`${placeholder}`} alt="author" />
-          );
 
           const rating =
             Number(author_details?.rating) < 10
               ? `${author_details.rating}.0`
               : author_details.rating;
 
+          const avatarPath = author_details.avatar_path
+            ? `https://image.tmdb.org/t/p/original/${author_details.avatar_path}`
+            : placeholder;
+
           const formattedDate = convertDate(created_at);
           return (
             <li key={id}>
               <Author>
-                {authorAvatar}
+                <Avatar src={avatarPath} alt={author_details.name} />
                 <AuthorInfo>
                   <p>
                     <span>A review by: </span>

@@ -5,9 +5,10 @@ import {
   Container,
   ImgWrapper,
   InfoWrapper,
-  Label,
   Overview,
 } from './MovieInfoCard.styled';
+import { convertTime } from 'helpers/convertTime';
+import ScoreBar from 'components/ScoreBar/ScoreBar';
 
 function MovieInfoCard({ movie }) {
   const {
@@ -18,6 +19,7 @@ function MovieInfoCard({ movie }) {
     genres,
     vote_average,
     release_date,
+    runtime = 0,
   } = movie;
 
   const backdrop = backdrop_path
@@ -29,9 +31,9 @@ function MovieInfoCard({ movie }) {
       ? genres.map(genre => genre.name).join(', ')
       : 'No genres provided...';
 
-  const score = vote_average ? Math.round((vote_average / 10) * 100) + '%' : 0;
   const releaseYear = release_date ? `(${release_date.split('-')[0]})` : '';
-
+  const filmDuration = convertTime(runtime);
+  const score = vote_average ? Math.round((vote_average / 10) * 100) : 0;
   return (
     <div
       style={{
@@ -56,12 +58,11 @@ function MovieInfoCard({ movie }) {
             {title}&nbsp;
             {releaseYear}
           </h2>
-
           <div>
-            <Label>Score: </Label>
-            {score}
+            <span>{genresList}</span>
+            {runtime > 0 && <span> &#183; {filmDuration}</span>}
           </div>
-
+          <ScoreBar score={score} />
           <div>
             <Overview>Overview</Overview>
             {overview ? (
@@ -69,11 +70,6 @@ function MovieInfoCard({ movie }) {
             ) : (
               <InfoMessage>No overview yet...</InfoMessage>
             )}
-          </div>
-
-          <div>
-            <Label>Genres: </Label>
-            <span>{genresList}</span>
           </div>
         </InfoWrapper>
       </Container>

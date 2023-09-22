@@ -31,10 +31,6 @@ export const InfoWrapper = styled.div`
   }
 `;
 
-export const Label = styled.span`
-  font-weight: 700;
-`;
-
 export const Overview = styled.span`
   display: block;
   margin-bottom: 8px;

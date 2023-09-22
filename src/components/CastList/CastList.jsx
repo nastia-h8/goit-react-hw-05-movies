@@ -5,23 +5,21 @@ import { List, Item, Overlay, Name } from './CastList.styled';
 function CastList({ cast }) {
   return (
     <List>
-      {cast.map(({ id, name, character, profile_path }) => (
-        <Item key={id}>
-          <img
-            src={
-              profile_path
-                ? `https://image.tmdb.org/t/p/w200/${profile_path}`
-                : `${placeholder}`
-            }
-            alt={name}
-            width="200"
-          />
-          <Overlay>
-            <Name>{name}</Name>
-            <p>{character}</p>
-          </Overlay>
-        </Item>
-      ))}
+      {cast.map(({ id, name, character, profile_path }) => {
+        const profilePath = profile_path
+          ? `https://image.tmdb.org/t/p/w200/${profile_path}`
+          : placeholder;
+
+        return (
+          <Item key={id}>
+            <img src={profilePath} alt={name} width="200" />
+            <Overlay>
+              <Name>{name}</Name>
+              <p>{character}</p>
+            </Overlay>
+          </Item>
+        );
+      })}
     </List>
   );
 }
