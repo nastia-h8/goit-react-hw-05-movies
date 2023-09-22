@@ -41,6 +41,7 @@ export async function getMovieCast(movieId, signal) {
     ...options,
     signal: signal,
   });
+
   return response.data.cast;
 }
 
@@ -49,5 +50,6 @@ export async function getMovieReviews(movieId, signal) {
     ...options,
     signal: signal,
   });
+  console.log(response.data);
   return response.data.results;
 }

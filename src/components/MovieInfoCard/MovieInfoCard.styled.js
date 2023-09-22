@@ -25,6 +25,10 @@ export const InfoWrapper = styled.div`
   flex-grow: 1;
   text-align: left;
   color: ${p => p.theme.colors.light};
+
+  h2 {
+    font-size: 26px;
+  }
 `;
 
 export const Label = styled.span`

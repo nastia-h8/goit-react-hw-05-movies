@@ -1,26 +1,77 @@
 import PropTypes from 'prop-types';
-import { List, Author, Text } from './ReviewsList.styled';
+import {
+  List,
+  Author,
+  Text,
+  InfoDate,
+  Avatar,
+  InfoRating,
+  AuthorInfo,
+} from './ReviewsList.styled';
 import ShowMoreContent from 'components/ShowMoreContent/ShowMoreContent';
+import placeholder from '../../images/user-placeholder.jpg';
+import { AiFillStar } from 'react-icons/ai';
+import { convertDate } from 'helpers/convertDate';
 
 function ReviewsList({ reviews }) {
   return (
     <List>
-      {reviews.map(({ id, author = 'Unknown author', content }) => {
-        const isContentShort = content?.length < 300;
-        return (
-          <li key={id}>
-            <Author>
-              <span>A review by: </span>
-              {author}
-            </Author>
-            {isContentShort ? (
-              <Text>{content}</Text>
-            ) : (
-              <ShowMoreContent content={content} />
-            )}
-          </li>
-        );
-      })}
+      {reviews.map(
+        ({
+          id,
+          author = 'Unknown author',
+          content,
+          author_details,
+          created_at,
+        }) => {
+          const isContentShort = content?.length < 300;
+          const authorAvatar = author_details.avatar_path ? (
+            <Avatar
+              src={`https://image.tmdb.org/t/p/original/${author_details.avatar_path}`}
+              alt={author_details.name}
+            />
+          ) : (
+            <Avatar src={`${placeholder}`} alt="author" />
+          );
+
+          const rating =
+            Number(author_details?.rating) < 10
+              ? `${author_details.rating}.0`
+              : author_details.rating;
+
+          const formattedDate = convertDate(created_at);
+          return (
+            <li key={id}>
+              <Author>
+                {authorAvatar}
+                <AuthorInfo>
+                  <p>
+                    <span>A review by: </span>
+                    {author}
+                  </p>
+                  {author_details.rating && (
+                    <InfoRating>
+                      <AiFillStar />
+                      {rating}
+                    </InfoRating>
+                  )}
+                  {created_at && (
+                    <InfoDate>
+                      <span>Written on: </span>
+                      {formattedDate}
+                    </InfoDate>
+                  )}
+                </AuthorInfo>
+              </Author>
+              {isContentShort ? (
+                <Text>{content}</Text>
+              ) : (
+                <ShowMoreContent content={content} />
+              )}
+            </li>
+          );
+        }
+      )}
     </List>
   );
 }

@@ -41,6 +41,7 @@ export const AddInfoWrapper = styled.div`
   text-align: left;
 
   h3 {
+    font-size: 22px;
     margin-bottom: 12px;
   }
 `;

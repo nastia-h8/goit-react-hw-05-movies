@@ -16,15 +16,53 @@ export const List = styled.ul`
   }
 `;
 
-export const Author = styled.h3`
+export const Author = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 10px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.19;
   letter-spacing: 0.03em;
 
   span {
     font-weight: 500;
+  }
+`;
+
+export const Avatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: ${p => p.theme.radii.circle};
+`;
+
+export const AuthorInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const InfoDate = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const InfoRating = styled.span`
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.light};
+
+  background-color: ${p => p.theme.colors.bgc};
+
+  svg {
+    fill: currentColor;
   }
 `;
 
