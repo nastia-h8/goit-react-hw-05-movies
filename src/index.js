@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 const theme = {
   colors: {
     primary: '#212121',
-    accent: '#00d1ff',
+    accent: 'rgb(0, 122, 255)',
     light: '#ffffff',
     bgc: 'rgba(47, 48, 58, 0.8)',
     secondary: '#757575',

@@ -12,10 +12,16 @@ import ShowMoreContent from 'components/ShowMoreContent/ShowMoreContent';
 import placeholder from '../../images/user-placeholder.jpg';
 import { AiFillStar } from 'react-icons/ai';
 import { convertDate } from 'helpers/convertDate';
+import { smoothScroll } from 'helpers/smoothScroll';
+import { useEffect } from 'react';
 
 function ReviewsList({ reviews }) {
+  useEffect(() => {
+    smoothScroll('scrollToReviewList');
+  }, []);
+
   return (
-    <List>
+    <List name="scrollToReviewList">
       {reviews.map(
         ({
           id,

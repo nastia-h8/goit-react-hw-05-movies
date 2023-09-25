@@ -63,13 +63,12 @@ export const StyledLink = styled(NavLink)`
   font-size: 14px;
   line-height: 1.14;
   letter-spacing: 0.02em;
-  border: 1px solid ${p => p.theme.colors.accent};
+  box-shadow: ${p => p.theme.shadow};
   transition: all ${p => p.theme.transition};
 
   &:hover,
   &:focus {
-    color: ${p => p.theme.colors.light};
-    background-color: ${p => p.theme.colors.accent};
+    color: ${p => p.theme.colors.accent};
   }
 
   &.active {

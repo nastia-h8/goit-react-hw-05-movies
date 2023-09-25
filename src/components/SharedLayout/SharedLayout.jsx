@@ -12,6 +12,7 @@ import {
   Nav,
   StyledLink,
   Section,
+  LogoTitle,
 } from './SharedLayout.styled';
 
 export default function SharedLayout() {
@@ -20,6 +21,11 @@ export default function SharedLayout() {
       <Header>
         <HeaderContainer>
           <Logo />
+          <LogoTitle>
+            <span>Cine</span>
+            City
+          </LogoTitle>
+
           <Nav>
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/movies">Movies</StyledLink>
@@ -33,7 +39,6 @@ export default function SharedLayout() {
           </Suspense>
         </Section>
       </main>
-
       <Toaster toastOptions={{ duration: 2000 }} />
       <GlobalStyle />
     </>

@@ -6,3 +6,11 @@ export const Container = styled.div`
   margin-right: auto;
   max-width: 1200px;
 `;
+
+export const Title = styled.h1`
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.17;
+  text-align: left;
+`;

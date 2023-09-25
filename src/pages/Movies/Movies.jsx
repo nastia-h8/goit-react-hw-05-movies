@@ -5,58 +5,76 @@ import { toast } from 'react-hot-toast';
 import * as moviesAPI from 'services/movies-api';
 
 import Searchbar from 'components/Searchbar/Searchbar';
-import MovieList from 'components/MovieList/MovieList';
 import Message from 'components/Message/ErrorMessage';
 import Loader from 'components/Loader';
-import { Container } from './Movies.styled';
+import { Button, Container } from './Movies.styled';
+import MovieSearchList from 'components/MovieSearchList/MovieSearchList';
+import { ScrollToTop } from 'components/ScrollToTop/ScrollToTop';
+
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const queryParams = searchParams.get('query') ?? '';
+  const handleLoadMore = () => {
+    setPage(p => p + 1);
+    scroll.scrollMore(350);
+  };
 
   const onSubmit = query => {
+    if (queryParams === query) {
+      toast.error(`You are already searching - ${query}`);
+      return;
+    }
     setSearchParams(query ? { query } : {});
     setMovies([]);
     setError(false);
+    setPage(1);
   };
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const fetchMovies = async query => {
+    const fetchMovies = async (query, page) => {
       try {
         setIsLoading(true);
 
         const normalizedQuery = query.toLowerCase().trim();
-        const fetchedMovies = await moviesAPI.getMovies(
-          normalizedQuery,
-          signal
-        );
+        const {
+          results: fetchedMovies,
+          total_pages,
+          total_results,
+        } = await moviesAPI.getMovies(normalizedQuery, signal, page);
 
         if (!fetchedMovies.length && normalizedQuery) {
           toast.error('No movies found');
           setSearchParams({});
           return;
         }
-        setMovies(fetchedMovies);
+        if (page === 1) toast.success(`We found ${total_results} movies`);
+
+        setMovies(m => [...m, ...fetchedMovies]);
+        setTotalPages(total_pages);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') setError(true);
-        setError(true);
       } finally {
         setIsLoading(false);
       }
     };
-    if (queryParams) fetchMovies(queryParams);
+    if (queryParams) fetchMovies(queryParams, page);
 
     return () => {
       controller.abort();
     };
-  }, [queryParams, movies.length, setSearchParams]);
+  }, [queryParams, setSearchParams, page]);
 
   return (
     <Container>
@@ -65,7 +83,21 @@ export default function Movies() {
         value={queryParams}
         isLoading={isLoading}
       />
-      {movies.length > 0 && <MovieList movies={movies} />}
+      {movies.length > 0 && (
+        <>
+          <MovieSearchList movies={movies} />
+          {page !== totalPages && (
+            <Button
+              type="button"
+              onClick={handleLoadMore}
+              disabled={isLoading ? true : false}
+            >
+              Load more
+            </Button>
+          )}
+          <ScrollToTop />
+        </>
+      )}
       {isLoading && <Loader />}
       {error && (
         <Message>Oops, something went wrong...Try again later!</Message>

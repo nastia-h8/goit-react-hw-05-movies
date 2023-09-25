@@ -6,13 +6,6 @@ export const Section = styled.section`
   padding-top: 30px;
   padding-bottom: 30px;
   text-align: center;
-
-  h1 {
-    margin-bottom: 20px;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 1.17;
-  }
 `;
 
 export const Header = styled.header`
@@ -25,10 +18,23 @@ export const Header = styled.header`
 export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px;
+  /* gap: ${p => p.theme.spacing(6)}; */
+  padding: 0 16px;
   margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
+`;
+
+export const LogoTitle = styled.div`
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.19;
+  letter-spacing: 0.03em;
+
+  span {
+    color: ${p => p.theme.colors.accent};
+  }
 `;
 
 export const Nav = styled.nav`
@@ -37,7 +43,7 @@ export const Nav = styled.nav`
 `;
 
 export const Logo = styled.span`
-  margin-right: 40px;
+  margin-right: 20px;
   width: 60px;
   height: 60px;
   background-image: url(${logo});
@@ -46,24 +52,34 @@ export const Logo = styled.span`
 
 export const StyledLink = styled(NavLink)`
   position: relative;
-  padding: 10px 16px;
+  padding: 24px 16px;
   font-weight: 700;
   font-size: 18px;
   line-height: 1.14;
   letter-spacing: 0.02em;
   text-decoration: none;
-  border: 1px solid transparent;
   border-radius: ${p => p.theme.spacing(1)};
   color: inherit;
   transition: all 250ms linear;
 
   &:hover,
   &:focus {
-    border-color: ${p => p.theme.colors.accent};
+    color: ${p => p.theme.colors.accent};
   }
 
   &.active {
-    color: white;
-    background-color: ${p => p.theme.colors.accent};
+    /* color: white; */
+    color: ${p => p.theme.colors.accent};
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: ${p => p.theme.colors.accent};
+      border-radius: 2px;
+    }
   }
 `;

@@ -1,6 +1,26 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
+
+export const List = styled.ul`
+  display: grid;
+  max-width: calc(100vw - 48px);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: ${p => p.theme.spacing(4)};
+  margin: 0 auto;
+`;
+
+export const Item = styled.li`
+  position: relative;
+  border-radius: ${p => p.theme.radii.sm};
+  box-shadow: ${p => p.theme.shadow};
+  overflow: hidden;
+  transition: transform ${p => p.theme.transition};
+
+  &:hover,
+  :focus {
+    transform: scale(0.98);
+  }
+`;
 
 export const StyledLink = styled(Link)`
   display: flex;
@@ -19,8 +39,7 @@ export const StyledLink = styled(Link)`
 
   &:hover,
   &:focus {
-    transform: scale(0.98);
-    box-shadow: ${p => p.theme.shadow};
+    color: ${p => p.theme.colors.accent};
   }
 
   svg {
@@ -39,7 +58,7 @@ export const Img = styled.img`
 `;
 
 export const Wrapper = styled.div`
-  padding: 16px 4px;
+  padding: 16px 0;
   min-height: 60px;
   display: flex;
   align-items: center;
@@ -50,29 +69,4 @@ export const Title = styled.h2`
   font-size: 18px;
   line-height: 1.14;
   letter-spacing: 0.02em;
-`;
-
-export const StyledSwiper = styled(Swiper)`
-  width: 100%;
-  height: 100%;
-  padding-bottom: 16px !important;
-`;
-
-export const StyledSlide = styled(SwiperSlide)`
-  padding: 8px;
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 `;

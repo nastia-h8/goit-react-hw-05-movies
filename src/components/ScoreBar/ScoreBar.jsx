@@ -7,7 +7,7 @@ const ScoreBar = ({ score }) => {
     <Container>
       <Filler
         style={{
-          background: `conic-gradient(#00d1ff ${percent}deg, #c8c5c59e 0deg)`,
+          background: `conic-gradient(rgb(0, 122, 255) ${percent}deg, #c8c5c59e 0deg)`,
         }}
       >
         <Label>{`${score}%`}</Label>
