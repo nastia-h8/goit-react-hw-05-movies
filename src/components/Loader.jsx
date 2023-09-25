@@ -15,7 +15,7 @@ export default function Loader() {
         transform: 'translate(-50%)',
       }}
       wrapperClass="blocks-wrapper"
-      colors={['#00d1ff', '#A594F9', '#CDC1FF', '#807EFC', '#7371FC']}
+      colors={['rgb(0, 122, 255)', '#A594F9', '#CDC1FF', '#807EFC', '#7371FC']}
     />
   );
 }

@@ -4,7 +4,7 @@ import { AiFillLeftSquare } from 'react-icons/ai';
 
 import * as moviesAPI from 'services/movies-api';
 
-import MovieInfoCard from 'components/MovieInfoCard/MovieInfoCard';
+import MovieInfoCard from 'components/MovieDetailsCard/MovieDetailsCard';
 import Message from 'components/Message/ErrorMessage';
 import Loader from 'components/Loader';
 import {

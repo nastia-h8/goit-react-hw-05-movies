@@ -7,7 +7,6 @@ const scroll = Scroll.animateScroll;
 
 export function ScrollToTop() {
   const [isBtnShow, setIsBtnShow] = useState(false);
-
   const scrollToTop = () => scroll.scrollToTop();
 
   useEffect(() => {

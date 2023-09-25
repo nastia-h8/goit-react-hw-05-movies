@@ -10,7 +10,7 @@ import {
   InfoWrapper,
   Overview,
   InnerWrapper,
-} from './MovieInfoCard.styled';
+} from './MovieDetailsCard.styled';
 
 function MovieInfoCard({ movie }) {
   const {
