@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import placeholder from '../../images/placeholder.jpg';
-import InfoMessage from '../Message/InfoMessage';
+import ScoreBar from 'components/ScoreBar/ScoreBar';
+import { convertTime } from 'helpers/convertTime';
+import { convertDate } from 'helpers/convertDate';
+import { BiLinkExternal } from 'react-icons/bi';
 import {
   Container,
   ImgWrapper,
   InfoWrapper,
   Overview,
+  InnerWrapper,
 } from './MovieInfoCard.styled';
-import { convertTime } from 'helpers/convertTime';
-import ScoreBar from 'components/ScoreBar/ScoreBar';
 
 function MovieInfoCard({ movie }) {
   const {
@@ -20,6 +22,8 @@ function MovieInfoCard({ movie }) {
     vote_average,
     release_date,
     runtime = 0,
+    tagline,
+    homepage,
   } = movie;
 
   const backdrop = backdrop_path
@@ -29,9 +33,12 @@ function MovieInfoCard({ movie }) {
   const genresList =
     genres.length > 0
       ? genres.map(genre => genre.name).join(', ')
-      : 'No genres provided...';
+      : 'No genres provided';
 
-  const releaseYear = release_date ? `(${release_date.split('-')[0]})` : '';
+  const formattedYear = release_date ? `(${release_date.split('-')[0]})` : '';
+  const formattedDate = convertDate(release_date);
+
+  const movieOverview = overview ? overview : 'No overviews yet...';
   const filmDuration = convertTime(runtime);
   const score = vote_average ? Math.round((vote_average / 10) * 100) : 0;
   return (
@@ -54,22 +61,32 @@ function MovieInfoCard({ movie }) {
           />
         </ImgWrapper>
         <InfoWrapper>
-          <h2>
-            {title}&nbsp;
-            {releaseYear}
-          </h2>
+          <InnerWrapper>
+            <h2>
+              {title}&nbsp;
+              {formattedYear}
+            </h2>
+            {homepage && (
+              <a
+                href={homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Go to the official website"
+              >
+                <BiLinkExternal size={20} />
+              </a>
+            )}
+          </InnerWrapper>
+          {tagline && <i>{tagline}</i>}
           <div>
-            <span>{genresList}</span>
+            {release_date && <span>{formattedDate} &#183; </span>}
+            {genresList && <span> {genresList}</span>}
             {runtime > 0 && <span> &#183; {filmDuration}</span>}
           </div>
           <ScoreBar score={score} />
           <div>
             <Overview>Overview</Overview>
-            {overview ? (
-              <p>{overview}</p>
-            ) : (
-              <InfoMessage>No overview yet...</InfoMessage>
-            )}
+            <p>{movieOverview}</p>
           </div>
         </InfoWrapper>
       </Container>

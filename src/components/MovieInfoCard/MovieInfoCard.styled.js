@@ -9,6 +9,16 @@ export const Container = styled.div`
   max-width: 1200px;
 `;
 
+export const InnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${p => p.theme.spacing(1)};
+
+  svg {
+    fill: ${p => p.theme.colors.light};
+  }
+`;
+
 export const ImgWrapper = styled.div`
   width: 250px;
   border-radius: ${p => p.theme.radii.sm};

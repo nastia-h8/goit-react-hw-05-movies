@@ -10,10 +10,8 @@ const theme = {
     accent: 'rgb(0, 122, 255)',
     light: '#ffffff',
     bgc: 'rgba(47, 48, 58, 0.8)',
-    secondary: '#757575',
+    secondary: 'rgba(47, 48, 58, 0.6)',
     border: 'rgba(117, 117, 117, 0.2)',
-
-    tertiary: '#423e3e',
   },
   radii: {
     sm: '4px',

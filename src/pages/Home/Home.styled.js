@@ -12,5 +12,4 @@ export const Title = styled.h1`
   font-weight: 700;
   font-size: 28px;
   line-height: 1.17;
-  text-align: left;
 `;

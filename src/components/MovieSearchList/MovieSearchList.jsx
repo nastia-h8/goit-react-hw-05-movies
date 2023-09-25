@@ -4,18 +4,23 @@ import {
   List,
   StyledLink,
   Item,
-  Wrapper,
+  InfoWrapper,
   Title,
   ImgWrapper,
   Img,
+  Release,
 } from './MovieSearchList.styled';
 import placeholder from '../../images/placeholder.jpg';
+import { convertDate } from 'helpers/convertDate';
 
 function MovieSearchList({ movies, path = '' }) {
   const location = useLocation();
   return (
     <List>
-      {movies.map(({ id, title, poster_path }) => {
+      {movies.map(({ id, title, poster_path, release_date }) => {
+        const movieTitle =
+          title.length < 45 ? title : `${title.slice(0, 45)}...`;
+        const formattedDate = convertDate(release_date);
         return (
           <Item key={id}>
             <StyledLink to={`${path}${id}`} state={{ from: location }}>
@@ -27,13 +32,12 @@ function MovieSearchList({ movies, path = '' }) {
                       : `${placeholder}`
                   }
                   alt={title}
-                  width="250"
-                  height="200"
                 />
               </ImgWrapper>
-              <Wrapper>
-                <Title>{title}</Title>
-              </Wrapper>
+              <InfoWrapper>
+                <Title>{movieTitle}</Title>
+                <Release>{release_date && formattedDate}</Release>
+              </InfoWrapper>
             </StyledLink>
           </Item>
         );

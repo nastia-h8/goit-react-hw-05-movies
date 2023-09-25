@@ -48,18 +48,14 @@ export default function Movies() {
         setIsLoading(true);
 
         const normalizedQuery = query.toLowerCase().trim();
-        const {
-          results: fetchedMovies,
-          total_pages,
-          total_results,
-        } = await moviesAPI.getMovies(normalizedQuery, signal, page);
+        const { results: fetchedMovies, total_pages } =
+          await moviesAPI.getMovies(normalizedQuery, signal, page);
 
         if (!fetchedMovies.length && normalizedQuery) {
           toast.error('No movies found');
           setSearchParams({});
           return;
         }
-        if (page === 1) toast.success(`We found ${total_results} movies`);
 
         setMovies(m => [...m, ...fetchedMovies]);
         setTotalPages(total_pages);

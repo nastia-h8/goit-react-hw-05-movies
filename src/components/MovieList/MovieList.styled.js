@@ -29,7 +29,8 @@ export const StyledLink = styled(Link)`
 `;
 
 export const ImgWrapper = styled.div`
-  height: 320px;
+  height: 100%;
+  width: 100%;
 `;
 
 export const Img = styled.img`

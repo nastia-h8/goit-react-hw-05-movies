@@ -49,12 +49,12 @@ function MovieList({ movies, path = '' }) {
           : `${placeholder}`;
 
         const movieTitle =
-          title.length < 100 ? title : `${title.slice(0, 100)}...`;
+          title.length < 50 ? title : `${title.slice(0, 50)}...`;
         return (
           <StyledSlide key={id}>
             <StyledLink to={`${path}${id}`} state={{ from: location }}>
               <ImgWrapper>
-                <Img src={poaterPath} alt={title} width="250" height="200" />
+                <Img src={poaterPath} alt={title} />
               </ImgWrapper>
               <Wrapper>
                 <Title>{movieTitle}</Title>

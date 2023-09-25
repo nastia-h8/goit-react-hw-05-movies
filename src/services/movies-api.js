@@ -33,6 +33,7 @@ export async function getMovieDetails(movieId, signal) {
     ...options,
     signal,
   });
+  console.log(response.data);
   return response.data;
 }
 

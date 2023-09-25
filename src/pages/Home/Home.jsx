@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <Container>
-      <Title>Trending today</Title>
+      {<Title>Trending today</Title>}
       {isLoading && <Loader />}
       {error && <p>Oops, something went wrong...Try again later!</p>}
       {trendingMovies.length > 0 && (
