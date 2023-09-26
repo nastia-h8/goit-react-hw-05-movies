@@ -57,7 +57,6 @@ export const InfoWrapper = styled.div`
   padding: 8px;
   width: 100%;
   min-height: 80px;
-  /* justify-content: start; */
 `;
 
 export const Title = styled.h2`
