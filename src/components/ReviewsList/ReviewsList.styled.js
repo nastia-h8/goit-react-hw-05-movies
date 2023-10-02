@@ -9,7 +9,7 @@ export const List = styled.ul`
 
   li {
     padding: 20px;
-    width: 650px;
+    max-width: 650px;
     overflow: hidden;
     box-shadow: ${p => p.theme.shadow};
     border-radius: ${p => p.theme.radii.sm};
